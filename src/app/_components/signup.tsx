@@ -7,9 +7,26 @@ const Signup = () => {
   const [newPassword, setNewPassword] = useState("");
   const [city, setCity] = useState("");
 
-  function handleOnClick(){
-    
-  }
+  const handleOnClick = async () => {
+    console.log(email, password, city);
+    try {
+      let response = await fetch(`http://localhost:3000/api/resturants`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password, city }),
+      });
+      response = await response.json()
+      if(response.success){
+        alert("Restruant registered succesfully")
+    }
+   
+      console.log("response recieved:", response);
+    } catch (error) {
+      console.log("error:",error);
+    }
+  };
 
   return (
     <div className="login-container">
@@ -54,7 +71,7 @@ const Signup = () => {
           onChange={(event) => setCity(event.target.value)}
         />
 
-        <button>SignUp</button>
+        <button onClick={handleOnClick}>SignUp</button>
       </div>
     </div>
   );

@@ -1,15 +1,22 @@
 const mongoose = require("mongoose");
 
-
-const resturantSchema = new mongoose.Schema({
-  name: {
+ const resturantSchema = new mongoose.Schema({
+  // name: {
+  //   type: String,
+  //   required: true,
+  // },
+  email: {
     type: String,
-    required: true,  
-      
+    required: true,
   },
-
+  password: {
+    type: String,
+    required: true,
+  },
+  city: {
+    type: String,
+  },
 });
 
-
 export const Resturant =
-   mongoose.model("bipdbs", resturantSchema);
+  mongoose.models.Resturants || mongoose.model("Resturants", resturantSchema);
