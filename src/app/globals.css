@@ -57,3 +57,10 @@
   .login-container button:hover{
     background-color: #0056b3;
   }
+  .input-error{
+    color: red;
+    font-size: 15px;
+    margin-top: 0;
+    display: block;
+    margin-bottom: 1rem;
+  }

@@ -1,4 +1,3 @@
-// "use client";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
@@ -7,10 +6,28 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [city, setCity] = useState("");
+  const [error, setError] = useState(false);
+  const [passowrdError, setPasswordError] = useState(false);
   const router = useRouter();
+
   const handleOnClick = async () => {
     // console.log(email, password, city);
+
     try {
+      if (password !== newPassword) {
+        setPasswordError(true);
+
+        return false;
+      } else {
+        setPasswordError(false);
+      }
+
+      if(!email || !password ||!city){
+        setError(true)
+      }
+      else{
+        setError(false)
+      }
       let response = await fetch(`http://localhost:3000/api/resturants`, {
         method: "POST",
         headers: {
@@ -24,7 +41,7 @@ const Signup = () => {
         const { success } = response;
         delete success.password;
         localStorage.setItem("resturantUser", JSON.stringify(success));
-      router.push("/resturant/dashboard")
+        router.push("/resturant/dashboard");
       }
 
       console.log("response recieved:", response);
@@ -43,6 +60,12 @@ const Signup = () => {
           value={email}
           onChange={(event) => setEmail(event.target.value)}
         />
+         {error  && !email && (
+          <span className="input-error">
+            Please enter the email
+          </span>
+        )}
+
         <label htmlFor="">Enter password</label>
         <input
           type="password"
@@ -52,6 +75,7 @@ const Signup = () => {
           value={password}
           onChange={(event) => setPassword(event.target.value)}
         />
+        
         <label htmlFor="confirm-password" className="signup-label">
           Confirm password
         </label>
@@ -63,6 +87,11 @@ const Signup = () => {
           value={newPassword}
           onChange={(event) => setNewPassword(event.target.value)}
         />
+        {passowrdError && (
+          <span className="input-error">
+            password and new password doesnot match.
+          </span>
+        )}
 
         <label htmlFor="city" className="signup-label">
           Enter city name
@@ -75,6 +104,11 @@ const Signup = () => {
           value={city}
           onChange={(event) => setCity(event.target.value)}
         />
+           {error  && !city && (
+          <span className="input-error">
+            Please enter the City name.
+          </span>
+        )}
 
         <button onClick={handleOnClick}>SignUp</button>
       </div>

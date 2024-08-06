@@ -12,7 +12,7 @@ const ResturantHeader: React.FC = () => {
 
   useEffect(() => {
     let data = localStorage.getItem("resturantUser");
-    if (!data && pathname == "/resturant/dashboard  ") {
+    if (!data && pathname == "/resturant/dashboard") {
       router.push("/resturant");
     } else if (data && pathname == "/resturant") {
       router.push("/resturant/dashboard");
