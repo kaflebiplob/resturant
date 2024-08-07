@@ -1,10 +1,12 @@
 import { tree } from "next/dist/build/templates/app-page";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
+  const router = useRouter();
 
   const handleError = async () => {
     if (!email || !password) {
@@ -23,7 +25,14 @@ const Login = () => {
     response = await response.json()
     
     if(response.success){
-      alert("You logged in succesfully")
+      alert("You logged in succesfully");
+      const{success}= response;
+      delete success.password;
+      localStorage.setItem("resturantUser",JSON.stringify(success))
+      router.push("/resturant/dashboard")
+    }
+    else{
+      alert("login failed")
     }
 
   };

@@ -23,6 +23,7 @@ export async function POST(request: Request) {
   let payload = await request.json();
   await mongoose.connect(ConnectionURL);
   let result;
+  let success = false;
   console.log("connected to Post MongoDb");
   const { email, password } = payload;
   if (!email || !password) {
@@ -37,6 +38,9 @@ export async function POST(request: Request) {
       email: payload.email,
       password: payload.password,
     });
+    if (result) {
+      success = true;
+    }
   } else {
     const restaurants = new Resturant(payload);
     result = await restaurants.save();
