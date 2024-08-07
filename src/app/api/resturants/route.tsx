@@ -20,19 +20,28 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-let payload = await request.json();
-await mongoose.connect(ConnectionURL)
-console.log("connected to Post MongoDb")
-const { email, password } = payload;
-if (!email || !password) {
-  return NextResponse.json({ error: 'Email and password are required' }, { status: 400 });
-  
-}
-const restaurants = new Resturant(payload);
-const result = await restaurants.save();
-console.log("Restaurant saved:", result)
+  let payload = await request.json();
+  await mongoose.connect(ConnectionURL);
+  let result;
+  console.log("connected to Post MongoDb");
+  const { email, password } = payload;
+  if (!email || !password) {
+    return NextResponse.json(
+      { error: "Email and password are required" },
+      { status: 400 }
+    );
+  }
+
+  if (payload.login) {
+    result = await Resturant.findOne({
+      email: payload.email,
+      password: payload.password,
+    });
+  } else {
+    const restaurants = new Resturant(payload);
+    result = await restaurants.save();
+  }
+  console.log("Restaurant saved:", result);
 
   return NextResponse.json({ success: payload });
-
 }
-
