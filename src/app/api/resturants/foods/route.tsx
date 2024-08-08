@@ -33,6 +33,8 @@ export async function POST(request: Request) {
     
 
   const foods = new foodModel(payload);
+  console.log(payload)
+  
   const result = await foods.save();  
   if(result){
     success= true

@@ -22,6 +22,8 @@ const Fooditems = () => {
     let restro_id;
     if (resturantData && resturantData._id) {
       restro_id = resturantData._id;
+      console.log("restro_id",restro_id)
+      console.log("resturantdata:",resturantData)
     } else {
       console.log("resturantUser data is missing or _id is not found");
     }

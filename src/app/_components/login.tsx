@@ -26,9 +26,9 @@ const Login = () => {
     
     if(response.success){
       alert("You logged in succesfully");
-      const{success}= response;
-      delete success.password;
-      localStorage.setItem("resturantUser",JSON.stringify(success))
+      const{result}= response;
+      delete result.password;
+      localStorage.setItem("resturantUser",JSON.stringify( result))
       router.push("/resturant/dashboard")
     }
     else{

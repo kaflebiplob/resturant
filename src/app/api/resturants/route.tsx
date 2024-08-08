@@ -43,6 +43,8 @@ export async function POST(request: Request) {
       success = true;
 
     }
+  return NextResponse.json({ success, result });
+
   } else {
     const resturant = new Resturant(payload)
       result = await resturant.save();
