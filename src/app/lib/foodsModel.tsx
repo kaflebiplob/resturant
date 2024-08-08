@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+import { Resturant } from "./resturantsModel";
+// import Resturant from "../resturant/page";
 
 const foodsSchema = new mongoose.Schema({
   name: {
@@ -11,7 +13,7 @@ const foodsSchema = new mongoose.Schema({
   },
   path: {
     type: String,
-    required: true,
+   
   },
   description: {
     type: String,
@@ -19,6 +21,8 @@ const foodsSchema = new mongoose.Schema({
   },
   restro_id: {
     type: mongoose.Schema.Types.ObjectId,
+    ref:"Resturants",
+  
   },
 });
 

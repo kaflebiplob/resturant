@@ -1,30 +1,33 @@
 import mongoose from "mongoose";
 import React, { useState } from "react";
-interface RestaurantUser {
-  _id: string;
 
-  // add other fields as needed
-}
 
 const Fooditems = () => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [path, setPath] = useState("");
   const [description, setDescription] = useState("");
+  const [error, setError] = useState('');
 
   const handleBtn = async () => {
     console.log(name, price, path, description);
- 
-  // const resturantData = JSON.parse(localStorage.getItem("resturantUser") || "{}");
-  const resturantData = JSON.parse(localStorage.getItem("resturantUser"));
-  let restro_id;
-  if (resturantData) {
-    restro_id = resturantData._id
-}
 
-  
+    // const resturantData = JSON.parse(localStorage.getItem("resturantUser") || "{}");
+    const resturantData = JSON.parse(localStorage.getItem("resturantUser"));
+    if (!resturantData) {
+      setError('No resturantUser data found in local storage.');
+      return;
+    }
 
-
+    let restro_id;
+    if (resturantData && resturantData._id) {
+      restro_id = resturantData._id;
+    } else {
+      console.log("resturantUser data is missing or _id is not found");
+    }
+    if (resturantData) {
+      restro_id = resturantData._id;
+    }
     try {
       let response = await fetch("http://localhost:3000/api/resturants/foods", {
         method: "POST",
@@ -98,4 +101,6 @@ const Fooditems = () => {
   );
 };
 
-export default Fooditems;
+export default Fooditems
+
+

@@ -38,9 +38,9 @@ const Signup = () => {
       response = await response.json();
       if (response.success) {
         alert("Restruant registered succesfully");
-        const { success } = response;
-        delete success.password;
-        localStorage.setItem("resturantUser", JSON.stringify(success));
+        const { result } = response;
+        delete result.password;
+        localStorage.setItem("resturantUser", JSON.stringify(result));
         router.push("/resturant/dashboard");
       }
 

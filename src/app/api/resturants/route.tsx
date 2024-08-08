@@ -23,7 +23,7 @@ export async function GET() {
 export async function POST(request: Request) {
   let payload = await request.json();
   await mongoose.connect(ConnectionURL);
-  let result=undefined;
+  let result;
   let success = false;
   console.log("connected to Post MongoDb");
   const { email, password } = payload;
@@ -53,6 +53,6 @@ export async function POST(request: Request) {
   }
   console.log("Restaurant saved:", result);
 
-  return NextResponse.json({ success, result:payload });
+  return NextResponse.json({ success, result });
   // return NextResponse.json({ success: payload, result });
 }
