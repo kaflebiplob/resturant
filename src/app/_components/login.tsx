@@ -8,7 +8,7 @@ const Login = () => {
   const [error, setError] = useState(false);
   const router = useRouter();
 
-  const handleError = async () => {
+  const handlelogin = async () => {
     if (!email || !password) {
       setError(true);
     } else {
@@ -20,7 +20,7 @@ const Login = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ email, password, login:true }),
     });
     response = await response.json()
     
@@ -61,7 +61,7 @@ const Login = () => {
         {error && !password && (
           <span className="input-error">Please enter password.</span>
         )}
-        <button onClick={handleError}> Login</button>
+        <button onClick={handlelogin}> Login</button>
       </div>
     </div>
   );

@@ -1,8 +1,8 @@
-
+import mongoose from "mongoose";
 import React, { useState } from "react";
 interface RestaurantUser {
   _id: string;
-  
+
   // add other fields as needed
 }
 
@@ -14,25 +14,29 @@ const Fooditems = () => {
 
   const handleBtn = async () => {
     console.log(name, price, path, description);
-    let restro_id;
-    const resturantData: RestaurantUser | null = JSON.parse(
-      localStorage.getItem("resturantUser") || "null"
-    );
-    // const resturantData = JSON.parse(localStorage.getItem("resturantUser"));
-    if (resturantData) {
-      restro_id = resturantData._id;
-    }
+ 
+  // const resturantData = JSON.parse(localStorage.getItem("resturantUser") || "{}");
+  const resturantData = JSON.parse(localStorage.getItem("resturantUser"));
+  let restro_id;
+  if (resturantData) {
+    restro_id = resturantData._id
+}
+
+  
+
+
     try {
       let response = await fetch("http://localhost:3000/api/resturants/foods", {
         method: "POST",
+
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
           name,
           price,
-          // imagePath: path,
-          // description,
+          imagePath: path,
+          description,
           restro_id,
         }),
       });
@@ -41,7 +45,7 @@ const Fooditems = () => {
         alert("all done");
       }
     } catch (error) {
-      console.log("errro", error);
+      console.log("error", error);
     }
   };
   return (
@@ -88,7 +92,7 @@ const Fooditems = () => {
           value={description}
           onChange={(event) => setDescription(event.target.value)}
         />
-        <button onClick={handleBtn}>SignUp</button>
+        <button onClick={handleBtn}>Add</button>
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-const {default:mongoose} = require("mongoose");
+import mongoose from "mongoose";
 
 const foodsSchema = new mongoose.Schema({
   name: {
@@ -9,12 +9,19 @@ const foodsSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-
+  path: {
+    type: String,
+    required: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
   restro_id: {
     type: mongoose.Schema.Types.ObjectId,
-    required: true
-    
-    },
+  },
 });
 
-export const foodModel = mongoose.models.foods || mongoose.model("foods", foodsSchema);
+const foodModel = mongoose.models.foods || mongoose.model("foods", foodsSchema);
+
+export default foodModel;

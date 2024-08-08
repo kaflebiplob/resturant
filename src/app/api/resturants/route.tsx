@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { ConnectionURL } from "@/app/lib/db";
 import { Resturant } from "@/app/lib/resturantsModel";
 
+
 export async function GET() {
   try {
     await mongoose.connect(ConnectionURL);
@@ -11,7 +12,7 @@ export async function GET() {
     const data = await Resturant.find();
     console.log(data);
 
-    return NextResponse.json({ result: true, data });
+    return NextResponse.json({ result:data });
   } catch (error) {
     console.error("Error connecting to MongoDB:", error);
 
@@ -22,7 +23,7 @@ export async function GET() {
 export async function POST(request: Request) {
   let payload = await request.json();
   await mongoose.connect(ConnectionURL);
-  let result;
+  let result=undefined;
   let success = false;
   console.log("connected to Post MongoDb");
   const { email, password } = payload;
@@ -35,17 +36,23 @@ export async function POST(request: Request) {
 
   if (payload.login) {
     result = await Resturant.findOne({
-      email: payload.email,
-      password: payload.password,
+    email: payload.email,
+    password: payload.password
     });
     if (result) {
       success = true;
+
     }
   } else {
-    const restaurants = new Resturant(payload);
-    result = await restaurants.save();
+    const resturant = new Resturant(payload)
+      result = await resturant.save();
+    
+    if(result){
+      success=true
+    }
   }
   console.log("Restaurant saved:", result);
 
-  return NextResponse.json({ success: payload });
+  return NextResponse.json({ success, result:payload });
+  // return NextResponse.json({ success: payload, result });
 }

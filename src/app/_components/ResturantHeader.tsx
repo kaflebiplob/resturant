@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import "./resturantheader.css";
 import { useRouter, usePathname } from "next/navigation";
-import path from "path";
 
 const ResturantHeader: React.FC = () => {
   const [details, setDetails] = useState();
@@ -12,17 +11,18 @@ const ResturantHeader: React.FC = () => {
 
   useEffect(() => {
     let data = localStorage.getItem("resturantUser");
-    if (!data && pathname == "/resturant/dashboard") {
-      router.push("/resturant");
-    } else if (data && pathname == "/resturant") {
-      router.push("/resturant/dashboard");
-    } else {
+    if (data) {
       setDetails(JSON.parse(data));
     }
+    if (!data && pathname === "/resturant/dashboard") {
+      router.push("/resturant");
+    } else if (data && pathname === "/resturant") {
+      router.push("/resturant/dashboard");
+    }
   }, []);
-  function handleLogout(){
-localStorage.removeItem("resturantUser")
-router.push("/resturant")
+  function handleLogout() {
+    localStorage.removeItem("resturantUser");
+    router.push("/resturant");
   }
   return (
     <div className="cafe-wrapper">
@@ -30,11 +30,13 @@ router.push("/resturant")
       <nav className="links">
         <ul>
           <li>
-            <Link href={"/"}>Home</Link>
+            <Link href={"/"}>Home</Link>  
           </li>
-          {details && details.email ? (
+          {details  ? (
             <>
-            <button className="logoutbutton" onClick={handleLogout}>Logout</button>
+              <button className="logoutbutton" onClick={handleLogout}>
+                Logout
+              </button>
               <li>
                 <Link href={"/"}>Profile</Link>
               </li>{" "}
