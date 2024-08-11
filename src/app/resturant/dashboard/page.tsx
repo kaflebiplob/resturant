@@ -6,7 +6,7 @@ import ResturantHeader from '@/app/_components/ResturantHeader'
 import React, { useState } from 'react'
 
 const Dashboard = () => {
-  const[addItems, setAddItems]= useState(false)
+  const[addItems, setAddItems]= useState<boolean>(false)
   return (
     <>  
     <ResturantHeader/>
@@ -14,7 +14,7 @@ const Dashboard = () => {
     <button onClick={()=>setAddItems(true)}>Add to items</button>
     <button onClick={()=>setAddItems(false)}> Dashboard </button>
     {
-      addItems ?  <Fooditems/> : <DashboardFooditem/>
+      addItems ?  <Fooditems setAddItems={setAddItems}/> : <DashboardFooditem />
     }
 
       

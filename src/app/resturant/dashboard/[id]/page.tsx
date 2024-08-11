@@ -1,15 +1,17 @@
-import mongoose from "mongoose";
-import { tree } from "next/dist/build/templates/app-page";
-import { Span } from "next/dist/trace";
+"use client"
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 
 const Fooditems = (props) => {
+    const router = useRouter();
+    console.log(props)
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [path, setPath] = useState("");
   const [description, setDescription] = useState("");
   const [error, setError] = useState(false);
+ 
 
   const handleBtn = async () => {
     console.log(name, price, path, description);
@@ -20,50 +22,11 @@ const Fooditems = (props) => {
       setError(false)
     }
 
-    // const resturantData = JSON.parse(localStorage.getItem("resturantUser") || "{}");
-    const resturantData = JSON.parse(localStorage.getItem("resturantUser"));
-    if (!resturantData) {
-      setError(true);
-      return;
-    }
-
-    let restro_id;
-    if (resturantData && resturantData._id) {
-      restro_id = resturantData._id;
-    } else {
-      console.log("resturantUser data is missing or _id is not found");
-    }
-    if (resturantData) {
-      restro_id = resturantData._id;
-    }
-    try {
-      let response = await fetch("http://localhost:3000/api/resturants/foods", {
-        method: "POST",
-
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name,
-          price,
-          path,
-          description,
-          restro_id,
-        }),
-      });
-      response = await response.json();
-      if (response.success) {
-        alert("all done");
-        props.setAddItems(false)
-      }
-    } catch (error) {
-      console.log("error", error);
-    }
   };
   return (
     <div className="login-container">
       <div className="login-form">
-        <label htmlFor="">Enter food name</label>
+        <label htmlFor="">Edit food item</label>
         <input
           type="text"
           placeholder="Enter food name "
@@ -122,7 +85,9 @@ const Fooditems = (props) => {
             <span className="input-error">Please input description</span>
           )
         }
-        <button onClick={handleBtn}>Add</button>
+        <button onClick={handleBtn}>Update</button>
+        <button style={{marginTop:"10px"}} onClick={()=>router.push(`/resturant/dashboard`)}>Back to foodItems</button>
+
       </div>
     </div>
   );

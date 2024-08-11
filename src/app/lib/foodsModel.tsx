@@ -13,7 +13,7 @@ const foodsSchema = new mongoose.Schema({
   },
   path: {
     type: String,
-   
+   required:true,
   },
   description: {
     type: String,
