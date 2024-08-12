@@ -13,7 +13,6 @@ const mongoose = require("mongoose");
   password: {
     type: String,
     required: true,
-    unique:true,
   },
   city: {
     type: String,
@@ -21,4 +20,4 @@ const mongoose = require("mongoose");
 });
 
 export const Resturant =
-  mongoose.models.Resturants || mongoose.model("Resturants", resturantSchema);
+  mongoose.models.resturants || mongoose.model("resturants", resturantSchema);

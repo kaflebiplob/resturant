@@ -41,7 +41,7 @@ const Signup = () => {
         const { result } = response;
         delete result.password;
         localStorage.setItem("resturantUser", JSON.stringify(result));
-        router.push("/resturant/dashboard");
+        router.push("/resturant");
       }
 
       console.log("response recieved:", response);

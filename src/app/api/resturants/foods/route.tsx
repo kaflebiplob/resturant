@@ -1,26 +1,24 @@
 import { ConnectionURL } from "@/app/lib/db";
 import foodModel from "@/app/lib/foodsModel";
-import { Resturant } from "@/app/lib/resturantsModel";
 import mongoose from "mongoose";
 import { NextResponse } from "next/server";
-export async function GET() {
-  try {
-    await mongoose.connect(ConnectionURL);
-    console.log("Connected successfully to MongoDB");
+// export async function GET() {
+//   try {
+//     await mongoose.connect(ConnectionURL);
+//     console.log("Connected successfully to MongoDB");
 
-    const data = await foodModel.find();
-    console.log(data);
+//     const data = await foodModel.find({});
+//     console.log(data);
 
-    return NextResponse.json({ result: true, data });
-  } catch (error) {
-    console.error("Error connecting to MongoDB:", error);
+//     return NextResponse.json({ result: true, data });
+//   } catch (error) {
+//     console.error("Error connecting to MongoDB:", error);
 
-    return NextResponse.json({ result: false });
-  }
-}
+//     return NextResponse.json({ result: false });
+//   }
+// }
 
 export async function POST(request: Request) {
-  // let result;
   let success=false;
   let payload = await request.json();
   

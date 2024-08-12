@@ -28,14 +28,15 @@ const Fooditems = (props) => {
     }
 
     let restro_id;
-    if (resturantData && resturantData._id) {
+    if (resturantData ) {
       restro_id = resturantData._id;
     } else {
       console.log("resturantUser data is missing or _id is not found");
     }
-    if (resturantData) {
-      restro_id = resturantData._id;
-    }
+    // if (resturantData) {
+    //   restro_id = resturantData._id;
+    // }
+    
     try {
       let response = await fetch("http://localhost:3000/api/resturants/foods", {
         method: "POST",
