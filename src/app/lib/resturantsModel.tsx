@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 
  const resturantSchema = new mongoose.Schema({
-  // name: {
-  //   type: String,
-  //   required: true,
-  // },
+  name: {
+    type: String,
+    required: true,
+  },
   email: {
     type: String,
     required: true,
@@ -17,6 +17,9 @@ const mongoose = require("mongoose");
   city: {
     type: String,
   },
+  contact:{
+    type:String,
+  }
 });
 
 export const Resturant =
