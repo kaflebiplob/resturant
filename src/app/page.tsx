@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import CustomerHeader from "./_components/CustomerHeader";
+import { useRouter } from "next/navigation";
 interface Location {
   id: number; // Unique identifier for each location
   name: string; // Name of the location
@@ -13,6 +14,7 @@ export default function Home() {
   const [selectLocation, setSelectLocation] = useState("");
   const [showLocation, setShowLocation] = useState(false);
   const [resturant, setResturant] = useState([]);
+  const router = useRouter();
 
   const loadLocations = async () => {
     let response = await fetch(`http://localhost:3000/api/customer/locations`);
@@ -73,7 +75,7 @@ export default function Home() {
           />
           <div className="restaurantList">
             {resturant.map((item, index) => (
-              <div key={index} className="restaurantCard">
+              <div key={index} className="restaurantCard" onClick={()=>router.push("explore/" + item.name)}>
                 <h2 className="restaurantTitle">{item.name}</h2>
                 <h6 className="restaurantDetails">{item.city}</h6>
                 <h5 className="restaurantDetails">{item.email}</h5>

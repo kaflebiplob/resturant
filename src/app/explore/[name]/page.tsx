@@ -1,9 +1,11 @@
 import React from 'react'
 
-const ResDetails = () => {
+const ResDetails = (props) => {
+    const name = props.params.name
   return (
     <div>
       this is the details page.
+      {decodeURI(name)}
     </div>
   )
 }
