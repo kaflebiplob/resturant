@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useEffect, useState } from "react";
 import CustomerHeader from "./_components/CustomerHeader";
 interface Location {
@@ -10,8 +10,9 @@ export default function Home() {
   // const [locations, setLocations] = useState("");
   const [locations, setLocations] = useState<Location[]>([]);
 
-  const[selectLocation, setSelectLocation]=useState("")
-  const[showLocation,setShowLocation]=useState(false)
+  const [selectLocation, setSelectLocation] = useState("");
+  const [showLocation, setShowLocation] = useState(false);
+  const [resturant, setResturant] = useState([]);
 
   const loadLocations = async () => {
     let response = await fetch(`http://localhost:3000/api/customer/locations`);
@@ -20,14 +21,29 @@ export default function Home() {
       setLocations(response.result);
     }
   };
-  function addLocation(item){
-   setSelectLocation(item)
-   setShowLocation(false)
+  const loadResturants = async (params) => {
+    let url = `http://localhost:3000/api/customer`;
+    if (params?.location) {
+      url = url + "?location=" + params.location;
+    } else if (params?.resturant) {
+      url = url + "?resturant="+params.location;
+    }
+    let response = await fetch(url);
+    response = await response.json();
+    if (response.success) {
+      setResturant(response.result);
+    }
+  };
+  function addLocation(item) {
+    setSelectLocation(item);
+    setShowLocation(false);
+    loadResturants({ location: item });
   }
-  
-  useEffect(()=>{
+  useEffect(() => {
     loadLocations();
-  },[])
+    loadResturants();
+  }, []);
+
   return (
     <main>
       <CustomerHeader />
@@ -39,20 +55,32 @@ export default function Home() {
             placeholder="select place"
             className="inputFeild"
             value={selectLocation}
-            onClick={()=>setShowLocation(true)}
+            onClick={() => setShowLocation(true)}
           />
           <ul className="list">
-             {
-         showLocation &&  locations.map((item:Location)=>(
-              <li onClick={()=>addLocation(item)} className="listItem">{item}</li>
-            ))
-          }
-           </ul>
+            {showLocation &&
+              locations.map((item: Location) => (
+                <li onClick={() => addLocation(item)} className="listItem">
+                  {item}
+                </li>
+              ))}
+          </ul>
           <input
             type="text"
             placeholder="Enter a food or a resturant name."
             className="inputFeild"
+            onChange={(event)=>loadResturants({resturant:event.target.value})}
           />
+          <div className="restaurantList">
+            {resturant.map((item, index) => (
+              <div key={index} className="restaurantCard">
+                <h2 className="restaurantTitle">{item.name}</h2>
+                <h6 className="restaurantDetails">{item.city}</h6>
+                <h5 className="restaurantDetails">{item.email}</h5>
+                <h5 className="restaurantDetails">{item.contact}</h5>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </main>

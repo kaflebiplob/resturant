@@ -183,3 +183,35 @@ td {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s, box-shadow 0.3s;
 }
+.restaurantList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.restaurantCard {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  width: calc(33.333% - 20px); /* Adjust width based on number of columns */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s, transform 0.3s;
+}
+
+.restaurantCard:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+}
+
+.restaurantTitle {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.restaurantDetails {
+  color: #555;
+  font-size: 1rem;
+  margin-bottom: 5px;
+}

@@ -2,10 +2,12 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const Signup = () => {
+  const[name, setName]=useState("")
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [city, setCity] = useState("");
+  const[contactNumber, setContactNumber]=useState("")
   const [error, setError] = useState(false);
   const [passowrdError, setPasswordError] = useState(false);
   const router = useRouter();
@@ -22,7 +24,7 @@ const Signup = () => {
         setPasswordError(false);
       }
 
-      if(!email || !password ||!city){
+      if(!name||!email || !password ||!city||!contactNumber){
         setError(true)
       }
       else{
@@ -33,7 +35,7 @@ const Signup = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, password, city }),
+        body: JSON.stringify({name, email, password, city,contactNumber }),
       });
       response = await response.json();
       if (response.success) {
@@ -53,6 +55,18 @@ const Signup = () => {
   return (
     <div className="login-container">
       <div className="login-form">
+      <label htmlFor="">Enter Name</label>
+        <input
+          type="text"
+          placeholder="Enter Name"
+          value={name}
+          onChange={(event) => setName(event.target.value)}
+        />
+         {error  && !name && (
+          <span className="input-error">
+            Please enter the name
+          </span>
+        )}
         <label htmlFor="">Enter emai addresss</label>
         <input
           type="text"
@@ -107,6 +121,23 @@ const Signup = () => {
            {error  && !city && (
           <span className="input-error">
             Please enter the City name.
+          </span>
+        )}
+        
+        <label htmlFor="contact" className="signup-label">
+          Enter Contact Number
+        </label>
+        <input
+          type="number"
+          id="contact"
+          className="signup-input"
+          placeholder="Enter your contact number"
+          value={contactNumber}
+          onChange={(event) => setContactNumber(event.target.value)}
+        />
+           {error  && !contactNumber && (
+          <span className="input-error">
+            Please enter your Contact Number.
           </span>
         )}
 
