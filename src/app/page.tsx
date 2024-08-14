@@ -28,7 +28,7 @@ export default function Home() {
     if (params?.location) {
       url = url + "?location=" + params.location;
     } else if (params?.resturant) {
-      url = url + "?resturant="+params.location;
+      url = url + "?resturant="+params.resturant;
     }
     let response = await fetch(url);
     response = await response.json();

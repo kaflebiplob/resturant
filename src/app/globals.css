@@ -197,6 +197,7 @@ td {
   width: calc(33.333% - 20px); /* Adjust width based on number of columns */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s, transform 0.3s;
+  width: fit-content;
 }
 
 .restaurantCard:hover {
