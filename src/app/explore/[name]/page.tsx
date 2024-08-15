@@ -40,12 +40,13 @@ const ResDetails = (props) => {
         {foodItems && foodItems.length > 0 ? (
           foodItems.map((item, index) => (
             <div key={index} className="food-item">
-              <div>Name:{item.name}</div>
-              <div>Price:{item.price}</div>
               <div>
                 <img src={item.path} style={{ width: "100px" }} alt="" />
               </div>
+              <div>Name:{item.name}</div>
+              <div>Price:{item.price}</div>
               <div>Details:{item.description}</div>
+              <button>Add to cart</button>
             </div>
           ))
         ) : (
