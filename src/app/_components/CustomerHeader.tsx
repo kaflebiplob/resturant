@@ -1,32 +1,55 @@
-import Link from 'next/link'
-import React from 'react'
+import Link from "next/link";
+import React, { useEffect, useState } from "react";
 import "./resturantheader.css";
 
-const CustomerHeader = () => {
-  return (
-    <div className='cafe-wrapper'>
-      <div className="logo">
-        BCafe
-      </div>
-      <nav className="links">
+const CustomerHeader = (props) => {
+  // console.log("props:",props)
+  const cartStorage = JSON.parse(localStorage.getItem("cart"));
+  const [cartNumber, setCartNumber] = useState(cartStorage?.length);
+  const [cartItem, setCartItem] = useState(cartStorage);
 
-      <ul>
-        <li>
+  useEffect(() => {
+    if (props.cartData) {
+      if (cartNumber) {
+        if (cartItem[0].restro_id != props.cartData.restro_id) {
+          localStorage.removeItem("cart");
+          setCartNumber(1);
+        } else {
+          let localCartItem = cartItem;
+          localCartItem.push(JSON.parse(JSON.stringify(props.cartData)));
+          setCartItem(localCartItem);
+          setCartNumber(cartNumber + 1);
+
+          localStorage.setItem("cart", JSON.stringify(localCartItem));
+        }
+      } else {
+        setCartNumber(1);
+        setCartItem([props.cartData]);
+        localStorage.setItem("cart", JSON.stringify([props.cartData]));
+      }
+    }
+  }, [props.cartData]);
+  return (
+    <div className="cafe-wrapper">
+      <div className="logo">BCafe</div>
+      <nav className="links">
+        <ul>
+          <li>
             <Link href={"/"}>Login</Link>
-        </li>
-        <li>
+          </li>
+          <li>
             <Link href={"/"}>Signup</Link>
-        </li>
-        <li>
-            <Link href={"/"}>Cart(0)</Link>
-        </li>
-        <li>
+          </li>
+          <li>
+            <Link href={"/"}>Cart({cartNumber})</Link>
+          </li>
+          <li>
             <Link href={"/"}>Add Resturant</Link>
-        </li>
-      </ul>
+          </li>
+        </ul>
       </nav>
     </div>
-  )
-}
+  );
+};
 
-export default CustomerHeader
+export default CustomerHeader;

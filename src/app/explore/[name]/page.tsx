@@ -6,6 +6,22 @@ const ResDetails = (props) => {
   const name = props.params.name;
   const [resturantDetails, setResturantDetails] = useState("");
   const [foodItems, setFoodItems] = useState([]);
+  const [cartData, setCartData] = useState();
+  const [cartStorage, setCartStorage] = useState(()=>{
+    try {
+      const storedCart = localStorage.getItem("cart");
+      return storedCart ? JSON.parse(storedCart) : [];
+    } catch (error) {
+      console.error("Error parsing JSON from localStorage:", error);
+      return [];
+    }
+    // JSON.parse(localStorage.getItem("cart") || []) 
+});
+  const [cartIds, setCartIds] = useState(
+    cartStorage?.map((cartItem) => {
+      return cartItem._id;
+    })
+  );
 
   const loadFoodItems = async () => {
     const id = props.searchParams.id;
@@ -17,19 +33,23 @@ const ResDetails = (props) => {
     const url = `http://localhost:3000/api/customer/${id}`;
     let response = await fetch(url);
     response = await response.json();
-    console.log(response);
     if (response.success) {
       setResturantDetails(response.details);
       setFoodItems(response.foodDetails);
-      console.log(response.foodDetails);
     }
+  };
+  const addToCart = (item) => {
+    setCartData(item);
+    let localCartIds = cartIds;
+    localCartIds.push(item._id);
+    setCartIds(localCartIds);
   };
   useEffect(() => {
     loadFoodItems();
   }, []);
   return (
     <div>
-      <CustomerHeader />
+      <CustomerHeader cartData={cartData} />
       <div className="details-wrapper">
         <h1> {resturantDetails?.name}</h1>
         <h4>City: {resturantDetails?.city}</h4>
@@ -46,7 +66,11 @@ const ResDetails = (props) => {
               <div>Name:{item.name}</div>
               <div>Price:{item.price}</div>
               <div>Details:{item.description}</div>
-              <button>Add to cart</button>
+              {cartIds.includes(item._id) ? (
+                <button>Remove form cart</button>
+              ) : (
+                <button onClick={() => addToCart(item)}>Add to cart</button>
+              )}
             </div>
           ))
         ) : (
