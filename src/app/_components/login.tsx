@@ -1,4 +1,4 @@
-import { tree } from "next/dist/build/templates/app-page";
+
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
@@ -9,37 +9,37 @@ const Login = () => {
   const router = useRouter();
 
   const handlelogin = async () => {
+    setError(false)
     if (!email || !password) {
       setError(true);
     } else {
       setError(false);
     }
 
-    let response =await fetch(`http://localhost:3000/api/resturants`, {
+    let response = await fetch(`http://localhost:3000/api/resturants`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email, password, login:true }),
+      body: JSON.stringify({ email, password, login: true }),
     });
-    response = await response.json()
-    
-    if(response.success){
-      alert("You logged in succesfully");
-      const{result}= response;
-      delete result.password;
-      localStorage.setItem("resturantUser",JSON.stringify( result))
-      router.push("/resturant/dashboard")
-    }
-    else{
-      alert("login failed")
-    }
+    response = await response.json();
+   
 
+    if (response.success) {
+      alert("You logged in succesfully");
+      const { result } = response;
+      delete result.password;
+      localStorage.setItem("resturantUser", JSON.stringify(result));
+      router.push("/resturant/dashboard");
+    } else {
+      alert("login failed");
+    }
   };
   return (
     <div className="login-container">
       <div className="login-form">
-        <label htmlFor="">Enter emai addresss</label>
+        <label htmlFor="">Enter email addresss</label>
         <input
           type="text"
           placeholder="Enter your  email.."

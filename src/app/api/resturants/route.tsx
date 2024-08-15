@@ -28,7 +28,7 @@ export async function POST(request: Request) {
   let success = false;
   console.log("connected to Post MongoDb");
   const { email, password ,name ,contactNumber} = payload;
-  if (!email || !password || !name) {
+  if (!email || !password ) {
     return NextResponse.json(
       { error: "Email and password and name are required" },
       { status: 400 }
@@ -40,7 +40,7 @@ export async function POST(request: Request) {
     result = await Resturant.findOne({
     email: payload.email, 
     password: payload.password,
-    // name:payload.name
+    // name:payload.name  
     });
     if (result) {
       success = true;
