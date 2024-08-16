@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import "./resturantheader.css";
+import { json } from "stream/consumers";
 
 const CustomerHeader = (props) => {
   // console.log("props:",props)
@@ -29,6 +30,19 @@ const CustomerHeader = (props) => {
       }
     }
   }, [props.cartData]);
+  useEffect(() => {
+    if (props.removeCartData) {
+      let localcartItem = cartItem.filter((item) => {
+        return item._id != props.removeCartData;
+      });
+      setCartItem(localcartItem);
+      setCartNumber(cartNumber-1)
+      localStorage.setItem("cart",JSON.stringify(localcartItem))
+      if(localcartItem.length==0){
+        localStorage.removeItem("cart")
+      }
+    }
+  }, [props.removeCartData]);
   return (
     <div className="cafe-wrapper">
       <div className="logo">BCafe</div>
