@@ -49,13 +49,16 @@ const CustomerHeader = (props) => {
       <nav className="links">
         <ul>
           <li>
+            <Link href={"/"}>Home</Link>
+          </li>
+          <li>
             <Link href={"/"}>Login</Link>
           </li>
           <li>
             <Link href={"/"}>Signup</Link>
           </li>
           <li>
-            <Link href={"/"}>Cart({cartNumber})</Link>
+            <Link href={cartNumber?"/cart":"#"}>Cart({cartNumber})</Link>
           </li>
           <li>
             <Link href={"/"}>Add Resturant</Link>
