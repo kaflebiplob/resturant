@@ -36,10 +36,10 @@ const CustomerHeader = (props) => {
         return item._id != props.removeCartData;
       });
       setCartItem(localcartItem);
-      setCartNumber(cartNumber-1)
-      localStorage.setItem("cart",JSON.stringify(localcartItem))
-      if(localcartItem.length==0){
-        localStorage.removeItem("cart")
+      setCartNumber(cartNumber - 1);
+      localStorage.setItem("cart", JSON.stringify(localcartItem));
+      if (localcartItem.length == 0) {
+        localStorage.removeItem("cart");
       }
     }
   }, [props.removeCartData]);
@@ -58,7 +58,7 @@ const CustomerHeader = (props) => {
             <Link href={"/"}>Signup</Link>
           </li>
           <li>
-            <Link href={cartNumber?"/cart":"#"}>Cart({cartNumber})</Link>
+            <Link href={cartNumber ? "/cart" : "#"}>Cart({cartNumber})</Link>
           </li>
           <li>
             <Link href={"/"}>Add Resturant</Link>
