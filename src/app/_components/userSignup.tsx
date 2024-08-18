@@ -1,50 +1,58 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const UserSignup: React.FC = () => {
-  const [username, setUsername] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [confirmPassword, setConfirmPassword] = useState<string>('');
-  const [city, setCity] = useState<string>('');
-  const [Cnumber, setCNumber] = useState<string>('');
-  const [streetAddress, setStreetAddress] = useState<string>('');
-  const [error, setError] = useState<string>('');
+  const [username, setUsername] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [city, setCity] = useState<string>("");
+  const [cNumber, setCNumber] = useState<string>("");
+  const [streetAddress, setStreetAddress] = useState<string>("");
+  const [error, setError] = useState<string>("");
 
-  const handleSignup = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    // Password and Confirm Password validation
+  const handleSignup = async () => {
+    // e.preventDefault();
     if (password !== confirmPassword) {
-      setError('Passwords do not match');
+      setError("Passwords do not match");
       return;
     }
-
-    // Further processing (e.g., API call)
     console.log({
       username,
       email,
       password,
       city,
-      Cnumber,
+      cNumber,
       streetAddress,
     });
-
-    // Reset form and error
-    setUsername('');
-    setEmail('');
-    setPassword('');
-    setConfirmPassword('');
-    setCity('');
-    setCNumber('');
-    setStreetAddress('');
-    setError('');
+    let response = await fetch(`http://localhost:3000/api/user`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username,
+        email,
+        password,
+        city,
+        cNumber,
+        streetAddress,
+      }),
+    });
+    response = await response.json();
+    console.log(response)
+    if (response.success) {
+      alert("success");
+      // result=true
+    } else {
+      alert("false");
+    }
   };
 
   return (
-    <div style={{ maxWidth: '400px', margin: '0 auto' }}>
+    <div style={{ maxWidth: "400px", margin: "0 auto" }}>
       <h2>Signup</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <form onSubmit={handleSignup}>
+      {error && <p style={{ color: "red" }}>{error}</p>}
+      <div>
         <div>
           <label htmlFor="username">Username:</label>
           <input
@@ -100,7 +108,7 @@ const UserSignup: React.FC = () => {
           <input
             type="text"
             id="number"
-            value={Cnumber}
+            value={cNumber}
             onChange={(e) => setCNumber(e.target.value)}
             required
           />
@@ -115,11 +123,10 @@ const UserSignup: React.FC = () => {
             required
           />
         </div>
-        <button type="submit">Signup</button>
-      </form>
+        <button onClick={handleSignup}>Signup</button>
+      </div>
     </div>
   );
 };
 
 export default UserSignup;
-
