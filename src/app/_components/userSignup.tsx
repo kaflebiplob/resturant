@@ -1,7 +1,7 @@
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
-const UserSignup: React.FC = () => {
+const UserSignup: React.FC = (props) => {
   const [username, setUsername] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -45,7 +45,13 @@ const UserSignup: React.FC = () => {
       const {result}= response;
       delete result.password;
       localStorage.setItem("user",JSON.stringify(result))
-      router.push("/")
+      if(props?.redirect?.order){
+        router.push("/order")
+      }
+      else{
+
+        router.push("/")
+      }
     } else {
       alert("false");
     }

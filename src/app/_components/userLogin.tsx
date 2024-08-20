@@ -3,7 +3,8 @@ import React from "react";
 import { useState } from "react";
 
 
-const UserLogin = () => {
+const UserLogin = (props) => {
+  console.log("login", props)
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const router = useRouter();
@@ -29,7 +30,13 @@ const UserLogin = () => {
       const {result}= response;
       delete result.password;
       localStorage.setItem("user",JSON.stringify(result))
-      router.push("/")
+      if(props?.redirect?.order){
+        router.push("/order")
+      }
+      else{
+
+        router.push("/")
+      }
     } else {
       alert("false");
     }

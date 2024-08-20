@@ -1,13 +1,14 @@
 "use client";
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import CustomerHeader from "../_components/CustomerHeader";
 import { DELIVERY_CHARGE, TAX } from "../lib/constants";
+import { useRouter } from "next/navigation";
 
 const Cartpage = () => {
   const [cartStorage, setCartStorage] = useState(
     JSON.parse(localStorage.getItem("cart")) || []
   );
-
+  const router = useRouter();
 
   const [total, setTotal] = useState(() =>
     cartStorage.length === 1
@@ -24,6 +25,13 @@ const Cartpage = () => {
       setTotal(calculatedTotal);
     }
   }, [cartStorage]);
+  function orderNow() {
+    if (JSON.parse(localStorage.getItem("user"))) {
+      router.push("/order");
+    } else {
+      router.push("/userauth?order=true");
+    }
+  }
 
   return (
     <div>
@@ -67,6 +75,7 @@ const Cartpage = () => {
           </span>
         </div>
       </div>
+      <button onClick={orderNow}>Order now</button>
     </div>
   );
 };
