@@ -279,39 +279,32 @@ td {
   font-weight: bold;
 }
 /* ------------------------UserSignup css---------------- */
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  margin: 0;
-  padding: 0;
-}
-
-/* .container {
+.signup-container {
   max-width: 400px;
   margin: 30px auto;
   padding: 20px;
   background-color: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
-} */
+}
 
-h2 {
+.signup-title {
   text-align: center;
   color: #333;
   margin-bottom: 20px;
 }
 
-form div {
+.signup-form-group {
   margin-bottom: 15px;
 }
 
-label {
+.signup-label {
   display: block;
   margin-bottom: 5px;
   color: #555;
 }
 
-input {
+.signup-input {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
@@ -319,7 +312,7 @@ input {
   box-sizing: border-box;
 }
 
-button {
+.signup-button {
   width: 100%;
   padding: 10px;
   background-color: #28a745;
@@ -330,11 +323,11 @@ button {
   font-size: 16px;
 }
 
-button:hover {
+.signup-button:hover {
   background-color: #218838;
 }
 
-p {
+.signup-error {
   color: red;
   text-align: center;
 }

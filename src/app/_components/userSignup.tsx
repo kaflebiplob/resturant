@@ -11,7 +11,6 @@ const UserSignup: React.FC = () => {
   const [error, setError] = useState<string>("");
 
   const handleSignup = async () => {
-    // e.preventDefault();
     if (password !== confirmPassword) {
       setError("Passwords do not match");
       return;
@@ -39,91 +38,97 @@ const UserSignup: React.FC = () => {
       }),
     });
     response = await response.json();
-    console.log(response)
+    console.log(response);
     if (response.success) {
       alert("success");
-      // result=true
     } else {
       alert("false");
     }
   };
 
   return (
-    <div style={{ maxWidth: "400px", margin: "0 auto" }}>
-      <h2>Signup</h2>
-      {error && <p style={{ color: "red" }}>{error}</p>}
+    <div className="signup-container">
+      <h2 className="signup-title">Signup</h2>
+      {error && <p className="signup-error">{error}</p>}
       <div>
-        <div>
-          <label htmlFor="username">Username:</label>
+        <div className="signup-form-group">
+          <label htmlFor="username" className="signup-label">Username:</label>
           <input
             type="text"
             id="username"
+            className="signup-input"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
           />
         </div>
-        <div>
-          <label htmlFor="email">Email:</label>
+        <div className="signup-form-group">
+          <label htmlFor="email" className="signup-label">Email:</label>
           <input
             type="email"
             id="email"
+            className="signup-input"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
         </div>
-        <div>
-          <label htmlFor="password">Password:</label>
+        <div className="signup-form-group">
+          <label htmlFor="password" className="signup-label">Password:</label>
           <input
             type="password"
             id="password"
+            className="signup-input"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
         </div>
-        <div>
-          <label htmlFor="confirmPassword">Confirm Password:</label>
+        <div className="signup-form-group">
+          <label htmlFor="confirmPassword" className="signup-label">Confirm Password:</label>
           <input
             type="password"
             id="confirmPassword"
+            className="signup-input"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
         </div>
-        <div>
-          <label htmlFor="city">City:</label>
+        <div className="signup-form-group">
+          <label htmlFor="city" className="signup-label">City:</label>
           <input
             type="text"
             id="city"
+            className="signup-input"
             value={city}
             onChange={(e) => setCity(e.target.value)}
             required
           />
         </div>
-        <div>
-          <label htmlFor="number">Number:</label>
+        <div className="signup-form-group">
+          <label htmlFor="number" className="signup-label">Number:</label>
           <input
             type="text"
             id="number"
+            className="signup-input"
             value={cNumber}
             onChange={(e) => setCNumber(e.target.value)}
             required
           />
         </div>
-        <div>
-          <label htmlFor="streetAddress">Street Address:</label>
+        <div className="signup-form-group">
+          <label htmlFor="streetAddress" className="signup-label">Street Address:</label>
           <input
             type="text"
             id="streetAddress"
+            className="signup-input"
             value={streetAddress}
             onChange={(e) => setStreetAddress(e.target.value)}
             required
           />
         </div>
-        <button onClick={handleSignup}>Signup</button>
+        <button className="signup-button" onClick={handleSignup}>Signup</button>
       </div>
     </div>
   );
