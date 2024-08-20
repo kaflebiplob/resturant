@@ -2,12 +2,17 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import "./resturantheader.css";
 import { json } from "stream/consumers";
+import { isRegExp } from "util/types";
+import { useRouter } from "next/navigation";
 
 const CustomerHeader = (props) => {
   // console.log("props:",props)
+  const userStorage = JSON.parse(localStorage.getItem("user"));
   const cartStorage = JSON.parse(localStorage.getItem("cart"));
+  const [user, setUser] = useState(userStorage ? userStorage : undefined);
   const [cartNumber, setCartNumber] = useState(cartStorage?.length);
   const [cartItem, setCartItem] = useState(cartStorage);
+  const router = useRouter();
 
   useEffect(() => {
     if (props.cartData) {
@@ -43,6 +48,11 @@ const CustomerHeader = (props) => {
       }
     }
   }, [props.removeCartData]);
+
+  const logout = () => {
+    localStorage.removeItem("user");
+    router.push("/userauth");
+  };
   return (
     <div className="cafe-wrapper">
       <div className="logo">BCafe</div>
@@ -51,12 +61,27 @@ const CustomerHeader = (props) => {
           <li>
             <Link href={"/"}>Home</Link>
           </li>
-          <li>
-            <Link href={"/"}>Login</Link>
-          </li>
-          <li>
-            <Link href={"/"}>Signup</Link>
-          </li>
+          {user ? (
+            <>
+              <li>
+                <Link href="/#" className="">
+                  {user?.username}
+                </Link>
+              </li>
+              <li className="logoutbutton" onClick={logout}>
+                Logout
+              </li>
+            </>
+          ) : (
+            <>
+              <li>
+                <Link href={"/"}>Login</Link>
+              </li>
+              <li>
+                <Link href={"/userauth"}>Signup</Link>
+              </li>
+            </>
+          )}
           <li>
             <Link href={cartNumber ? "/cart" : "#"}>Cart({cartNumber})</Link>
           </li>

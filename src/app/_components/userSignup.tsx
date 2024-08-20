@@ -1,3 +1,4 @@
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const UserSignup: React.FC = () => {
@@ -9,6 +10,7 @@ const UserSignup: React.FC = () => {
   const [cNumber, setCNumber] = useState<string>("");
   const [streetAddress, setStreetAddress] = useState<string>("");
   const [error, setError] = useState<string>("");
+  const router = useRouter();
 
   const handleSignup = async () => {
     if (password !== confirmPassword) {
@@ -40,7 +42,10 @@ const UserSignup: React.FC = () => {
     response = await response.json();
     console.log(response);
     if (response.success) {
-      alert("success");
+      const {result}= response;
+      delete result.password;
+      localStorage.setItem("user",JSON.stringify(result))
+      router.push("/")
     } else {
       alert("false");
     }
