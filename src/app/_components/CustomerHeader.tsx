@@ -94,7 +94,7 @@ if(props.removeCartData){
             <Link href={cartNumber ? "/cart" : "#"}>Cart({cartNumber})</Link>
           </li>
           <li>
-            <Link href={"/"}>Add Resturant</Link>
+            <Link href={"/resturant"}>Add Resturant</Link>
           </li>
         </ul>
       </nav>

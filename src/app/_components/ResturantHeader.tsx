@@ -30,9 +30,9 @@ const ResturantHeader: React.FC = () => {
       <nav className="links">
         <ul>
           <li>
-            <Link href={"/"}>Home</Link>  
+            <Link href={"/"}>Home</Link>
           </li>
-          {details  ? (
+          {details ? (
             <>
               <button className="logoutbutton" onClick={handleLogout}>
                 Logout

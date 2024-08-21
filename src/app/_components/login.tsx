@@ -1,4 +1,3 @@
-
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
@@ -9,7 +8,7 @@ const Login = () => {
   const router = useRouter();
 
   const handlelogin = async () => {
-    setError(false)
+    setError(false);
     if (!email || !password) {
       setError(true);
     } else {
@@ -24,7 +23,6 @@ const Login = () => {
       body: JSON.stringify({ email, password, login: true }),
     });
     response = await response.json();
-   
 
     if (response.success) {
       alert("You logged in succesfully");

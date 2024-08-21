@@ -6,7 +6,7 @@ interface FoodItem {
   price: String;
   path: string;
   description: string;
-  _id:string
+  _id: string;
 }
 
 // Define the type for the response from the API
@@ -16,9 +16,8 @@ interface ApiResponse {
 }
 
 const DashboardFooditem: React.FC = () => {
-  const router= useRouter();
- 
-  
+  const router = useRouter();
+
   const [foodItems, setFoodItems] = useState<FoodItem[] | undefined>(undefined);
   useEffect(() => {
     loadFooditems();
@@ -42,22 +41,20 @@ const DashboardFooditem: React.FC = () => {
       alert("food item is not added");
     }
   };
-  const deleteFoods = async (id:string) => {
-  let  response = await fetch(
-        `http://localhost:3000/api/resturants/foods/${id}`,
-        {
-          method: "DELETE",
-        }
-      );
-  response = await response.json();
+  const deleteFoods = async (id: string) => {
+    let response = await fetch(
+      `http://localhost:3000/api/resturants/foods/${id}`,
+      {
+        method: "DELETE",
+      }
+    );
+    response = await response.json();
 
     if (response.success) {
       loadFooditems();
-     
     } else {
       alert("food item not deleted");
-    } 
-    
+    }
   };
 
   return (
@@ -81,12 +78,27 @@ const DashboardFooditem: React.FC = () => {
               <td>{item.name}</td>
               <td>{item.price}</td>
               <td>
-                <img src={item.path}  style={{ height: 'auto', width:'100px' }}/>
+                <img
+                  src={item.path}
+                  style={{ height: "auto", width: "100px" }}
+                />
               </td>
               <td>{item.description}</td>
               <td>
-                <button className="dashboardButton"  onClick={()=>router.push(`/resturant/dashboard/${item._id}`)}>Edit</button>
-                <button className="dashboardButton"  onClick={()=>deleteFoods(item._id)}>Delete</button>
+                <button
+                  className="dashboardButton"
+                  onClick={() =>
+                    router.push(`/resturant/dashboard/${item._id}`)
+                  }
+                >
+                  Edit
+                </button>
+                <button
+                  className="dashboardButton"
+                  onClick={() => deleteFoods(item._id)}
+                >
+                  Delete
+                </button>
               </td>
             </tr>
           ))}

@@ -2,14 +2,12 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import { useState } from "react";
 
-
 const UserLogin = (props) => {
-  console.log("login", props)
+  console.log("login", props);
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const router = useRouter();
   const handleLogin = async () => {
-    
     console.log({
       email,
       password,
@@ -27,21 +25,18 @@ const UserLogin = (props) => {
     response = await response.json();
     console.log(response);
     if (response.success) {
-      const {result}= response;
+      const { result } = response;
       delete result.password;
-      localStorage.setItem("user",JSON.stringify(result))
-      if(props?.redirect?.order){
-        router.push("/order")
-      }
-      else{
-
-        router.push("/")
+      localStorage.setItem("user", JSON.stringify(result));
+      if (props?.redirect?.order) {
+        router.push("/order");
+      } else {
+        router.push("/");
       }
     } else {
       alert("false");
     }
   };
-
 
   return (
     <div>
@@ -74,7 +69,9 @@ const UserLogin = (props) => {
               required
             />
           </div>
-          <button className="signup-button" onClick={handleLogin}>Login</button>
+          <button className="signup-button" onClick={handleLogin}>
+            Login
+          </button>
         </div>
       </div>
     </div>

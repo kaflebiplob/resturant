@@ -42,15 +42,13 @@ const UserSignup: React.FC = (props) => {
     response = await response.json();
     console.log(response);
     if (response.success) {
-      const {result}= response;
+      const { result } = response;
       delete result.password;
-      localStorage.setItem("user",JSON.stringify(result))
-      if(props?.redirect?.order){
-        router.push("/order")
-      }
-      else{
-
-        router.push("/")
+      localStorage.setItem("user", JSON.stringify(result));
+      if (props?.redirect?.order) {
+        router.push("/order");
+      } else {
+        router.push("/");
       }
     } else {
       alert("false");
@@ -63,7 +61,9 @@ const UserSignup: React.FC = (props) => {
       {error && <p className="signup-error">{error}</p>}
       <div>
         <div className="signup-form-group">
-          <label htmlFor="username" className="signup-label">Username:</label>
+          <label htmlFor="username" className="signup-label">
+            Username:
+          </label>
           <input
             type="text"
             id="username"
@@ -74,7 +74,9 @@ const UserSignup: React.FC = (props) => {
           />
         </div>
         <div className="signup-form-group">
-          <label htmlFor="email" className="signup-label">Email:</label>
+          <label htmlFor="email" className="signup-label">
+            Email:
+          </label>
           <input
             type="email"
             id="email"
@@ -85,7 +87,9 @@ const UserSignup: React.FC = (props) => {
           />
         </div>
         <div className="signup-form-group">
-          <label htmlFor="password" className="signup-label">Password:</label>
+          <label htmlFor="password" className="signup-label">
+            Password:
+          </label>
           <input
             type="password"
             id="password"
@@ -96,7 +100,9 @@ const UserSignup: React.FC = (props) => {
           />
         </div>
         <div className="signup-form-group">
-          <label htmlFor="confirmPassword" className="signup-label">Confirm Password:</label>
+          <label htmlFor="confirmPassword" className="signup-label">
+            Confirm Password:
+          </label>
           <input
             type="password"
             id="confirmPassword"
@@ -107,7 +113,9 @@ const UserSignup: React.FC = (props) => {
           />
         </div>
         <div className="signup-form-group">
-          <label htmlFor="city" className="signup-label">City:</label>
+          <label htmlFor="city" className="signup-label">
+            City:
+          </label>
           <input
             type="text"
             id="city"
@@ -118,7 +126,9 @@ const UserSignup: React.FC = (props) => {
           />
         </div>
         <div className="signup-form-group">
-          <label htmlFor="number" className="signup-label">Number:</label>
+          <label htmlFor="number" className="signup-label">
+            Number:
+          </label>
           <input
             type="text"
             id="number"
@@ -129,7 +139,9 @@ const UserSignup: React.FC = (props) => {
           />
         </div>
         <div className="signup-form-group">
-          <label htmlFor="streetAddress" className="signup-label">Street Address:</label>
+          <label htmlFor="streetAddress" className="signup-label">
+            Street Address:
+          </label>
           <input
             type="text"
             id="streetAddress"
@@ -139,7 +151,9 @@ const UserSignup: React.FC = (props) => {
             required
           />
         </div>
-        <button className="signup-button" onClick={handleSignup}>Signup</button>
+        <button className="signup-button" onClick={handleSignup}>
+          Signup
+        </button>
       </div>
     </div>
   );

@@ -3,7 +3,6 @@ import { tree } from "next/dist/build/templates/app-page";
 import { Span } from "next/dist/trace";
 import React, { useState } from "react";
 
-
 const Fooditems = (props) => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
@@ -13,11 +12,11 @@ const Fooditems = (props) => {
 
   const handleBtn = async () => {
     console.log(name, price, path, description);
-    if(!name || !price || !path || !description){
-      setError(true)
-      return false
-    }else{
-      setError(false)
+    if (!name || !price || !path || !description) {
+      setError(true);
+      return false;
+    } else {
+      setError(false);
     }
 
     // const resturantData = JSON.parse(localStorage.getItem("resturantUser") || "{}");
@@ -28,7 +27,7 @@ const Fooditems = (props) => {
     }
 
     let restro_id;
-    if (resturantData ) {
+    if (resturantData) {
       restro_id = resturantData._id;
     } else {
       console.log("resturantUser data is missing or _id is not found");
@@ -36,7 +35,7 @@ const Fooditems = (props) => {
     // if (resturantData) {
     //   restro_id = resturantData._id;
     // }
-    
+
     try {
       let response = await fetch("http://localhost:3000/api/resturants/foods", {
         method: "POST",
@@ -55,7 +54,7 @@ const Fooditems = (props) => {
       response = await response.json();
       if (response.success) {
         alert("all done");
-        props.setAddItems(false)
+        props.setAddItems(false);
       }
     } catch (error) {
       console.log("error", error);
@@ -71,11 +70,9 @@ const Fooditems = (props) => {
           value={name}
           onChange={(event) => setName(event.target.value)}
         />
-        {
-          error && !name &&(
-            <span className="input-error">Please input name</span>
-          )
-        }
+        {error && !name && (
+          <span className="input-error">Please input name</span>
+        )}
 
         <label htmlFor="">Enter Price</label>
         <input
@@ -86,11 +83,9 @@ const Fooditems = (props) => {
           value={price}
           onChange={(event) => setPrice(event.target.value)}
         />
- {
-          error && !price &&(
-            <span className="input-error">Please input price</span>
-          )
-        }
+        {error && !price && (
+          <span className="input-error">Please input price</span>
+        )}
         <label htmlFor="confirm-password" className="signup-label">
           Enter image path
         </label>
@@ -102,11 +97,9 @@ const Fooditems = (props) => {
           value={path}
           onChange={(event) => setPath(event.target.value)}
         />
- {
-          error && !path &&(
-            <span className="input-error">Please input  Path</span>
-          )
-        }
+        {error && !path && (
+          <span className="input-error">Please input Path</span>
+        )}
         <label htmlFor="city" className="signup-label">
           Enter description
         </label>
@@ -118,17 +111,13 @@ const Fooditems = (props) => {
           value={description}
           onChange={(event) => setDescription(event.target.value)}
         />
-         {
-          error && !description && (
-            <span className="input-error">Please input description</span>
-          )
-        }
+        {error && !description && (
+          <span className="input-error">Please input description</span>
+        )}
         <button onClick={handleBtn}>Add</button>
       </div>
     </div>
   );
 };
 
-export default Fooditems
-
-
+export default Fooditems;
