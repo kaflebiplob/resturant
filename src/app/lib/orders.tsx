@@ -1,7 +1,7 @@
 
 const mongoose = require("mongoose")
 const orderSchema = new mongoose.Schema({
-    userId: mongoose.Schema.Types.ObjectId,
+    user_id: mongoose.Schema.Types.ObjectId,
     foodItems:String,
     restro_id:mongoose.Schema.Types.ObjectId,
     deliveryBoy_id:mongoose.Schema.Types.ObjectId,

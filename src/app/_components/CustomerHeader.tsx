@@ -48,11 +48,19 @@ const CustomerHeader = (props) => {
       }
     }
   }, [props.removeCartData]);
+  useEffect(()=>{
+if(props.removeCartData){
+  setCartItem([]);
+  setCartNumber(0)
+  localStorage.removeItem("cart")
+}
+  },[props.removeCartData])
 
   const logout = () => {
     localStorage.removeItem("user");
     router.push("/userauth");
   };
+  
   return (
     <div className="cafe-wrapper">
       <div className="logo">BCafe</div>
@@ -64,8 +72,8 @@ const CustomerHeader = (props) => {
           {user ? (
             <>
               <li>
-                <Link href="/#" className="">
-                  {user?.username}
+                <Link href="/myprofile" className="">
+                  {user?.email}
                 </Link>
               </li>
               <li className="logoutbutton" onClick={logout}>

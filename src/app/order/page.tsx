@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import CustomerHeader from "../_components/CustomerHeader";
 import { DELIVERY_CHARGE, TAX } from "../lib/constants";
+import { useRouter } from "next/navigation";
 
 const Orderpage = () => {
   const [userStorage, setUserStorage] = useState(
@@ -16,6 +17,8 @@ const Orderpage = () => {
       ? cartStorage[0].price
       : cartStorage.reduce((a, b) => a + b.price, 0)
   );
+  const[removeCartData,setRemoveCartData]=useState(false)
+  const router = useRouter();
 
   useEffect(() => {
     if (cartStorage.length > 0) {
@@ -31,31 +34,36 @@ const Orderpage = () => {
     let cart = JSON.parse(localStorage.getItem("cart"));
     let foodItems = cart.map((item) => item._id).toString();
     let restro_id = cart[0].restro_id;
-    let delivery_boy = "66c49e61fbc7c28f9aad8ddb";
+    let deliveryBoy_id = "66c49e61fbc7c28f9aad8ddb";
     let collection = {
       user_id,
       restro_id,
       foodItems,
-      delivery_boy,
+      deliveryBoy_id,
       status: "confirm",
       amount: total,
     };
     let response = await fetch("http://localhost:3000/api/orders", {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(collection),
     });
     response = await response.json();
     if (response.success) {
-      alert("YOu are going good");
+      alert("order done")
+      setRemoveCartData(true)
+      router.push("/myprofile")
     } else {
       alert("you are going bad");
     }
-    console.log(collection);
+    
   };
 
   return (
     <div>
-      <CustomerHeader />
+      <CustomerHeader removeCartData={removeCartData} />
 
       <div className="price-calculation">
         <div className="price-row">
